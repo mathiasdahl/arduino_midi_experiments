@@ -1,2 +1,4 @@
 int main (void);
-void test3 ();
+void test_getArduinoPinForPot ();
+void test_getMuxPinForPot ();
+

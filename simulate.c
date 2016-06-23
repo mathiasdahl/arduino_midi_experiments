@@ -36,15 +36,38 @@ int getArduinoPinForPot(int potNo) {
 }
 
 int getMuxPinForPot (int potNo) {
-   return -1;
+   return ((potNo - 1) % POTS_PER_MUX);
+}
+
+const int NUMBER_CTRL_PIN_MATRIX[8][3] = {
+   {0, 0, 0},
+   {1, 0, 0},
+   {0, 1, 0},
+   {1, 1, 0},
+   {0, 0, 1},
+   {1, 0, 1},
+   {0, 1, 1},
+   {1, 1, 1}
+};
+
+void getControlPins (int number, int pins[]) {
+   pins[0] = NUMBER_CTRL_PIN_MATRIX[number][0];
+   pins[1] = NUMBER_CTRL_PIN_MATRIX[number][1];
+   pins[2] = NUMBER_CTRL_PIN_MATRIX[number][2];
+}
+
+void setControlPins (int pinValues[]) {
+   // do something
 }
 
 int readPot (int potNo) {
-   int controlPinValues[3];
    int muxPin = getMuxPinForPot (potNo);
+   int ctrlPinValues[3];
+   getControlPins (muxPin, ctrlPinValues);
+   setControlPins (ctrlPinValues);
    int analogPin = getArduinoPinForPot (potNo);
    analogRead(analogPin);
-   return 0;
+   return -1;
 }
 
 void readPots () {
