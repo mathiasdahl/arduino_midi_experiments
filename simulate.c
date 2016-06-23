@@ -25,14 +25,25 @@ void loop () {
    sleep(1);
 }
 
-int getArduinoPinForPot(int potNo) {
+int getMuxForPot(int potNo) {
    int divResult = (potNo - 1) / POTS_PER_MUX;
    int muxNo = divResult;
-   return ARDUINO_MUX_INPUT_PINS[muxNo];
+   return muxNo;
 }
 
-int readPot(int potNo) {
-   analogRead(getArduinoPinForPot(potNo));
+int getArduinoPinForPot(int potNo) {
+   return ARDUINO_MUX_INPUT_PINS[getMuxForPot(potNo)];
+}
+
+int getMuxPinForPot (int potNo) {
+   return -1;
+}
+
+int readPot (int potNo) {
+   int controlPinValues[3];
+   int muxPin = getMuxPinForPot (potNo);
+   int analogPin = getArduinoPinForPot (potNo);
+   analogRead(analogPin);
    return 0;
 }
 
